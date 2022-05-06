@@ -52,17 +52,10 @@ var removeRxDatabase = function removeRxDatabase(databaseName, storage) {
     return Promise.resolve((0, _rxDatabaseInternalStore.getAllCollectionDocuments)(storageInstance, storage)).then(function (collectionDocs) {
       return Promise.resolve(Promise.all(collectionDocs.map(function (colDoc) {
         try {
-          var _key = colDoc.key;
-          var schema = colDoc.data.schema;
-
-          var split = _key.split('-');
-
-          var collectionName = split[0];
-
           var _storageInstance2 = storage.createStorageInstance({
             databaseName: databaseName,
-            collectionName: collectionName,
-            schema: schema,
+            collectionName: colDoc.data.name,
+            schema: colDoc.data.schema,
             options: {},
             multiInstance: false
           });
